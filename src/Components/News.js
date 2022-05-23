@@ -37,13 +37,16 @@ export default class News extends Component {
     // }
     async componentDidMount() {
         let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=0893bf57a89a4a4b8f4b4fcd6b0b815e&page=1&pageSize=${this.props.pageSize}`;
+        this.props.setProgress(30);
         this.setState({
             loading: true
         })
         let data = await fetch(url);
+        this.props.setProgress(70);
 
         let parseData = await data.json();
         let totalArticles = parseData.totalResults;
+
         let num = Math.ceil(totalArticles / this.props.pageSize);
 
         // console.log(parseData);
@@ -53,6 +56,7 @@ export default class News extends Component {
             articles: parseData.articles,
             pageLimitingNumber: num
         })
+        this.props.setProgress(100);
     }
     // we can set the page size to show the number of articles of one page
     // nextHandler = async () => {
@@ -112,7 +116,7 @@ export default class News extends Component {
         return (
             <>
 
-                <h2 className='text-center'>NewsTarget-Top {this.capitalizeFirstLetter(this.props.category)} Headlines</h2>
+                <h2 className='text-center my-3'>NewsTarget-Top {this.capitalizeFirstLetter(this.props.category)} Headlines</h2>
                 {this.state.loading && <Spinner />}
                 {/* this if for the infinite scroll */}
                 <InfiniteScroll

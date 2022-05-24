@@ -45,6 +45,7 @@ const News =(props)=>{
     }
 
     useEffect(()=>{
+        document.title = `${capitalizeFirstLetter(props.category)}-TargetNews`
         UpdateNews();
     },[]);
     // async componentDidMount() {
@@ -121,7 +122,7 @@ const News =(props)=>{
         return (
             <>
 
-                <h2 className='text-center my-3'>NewsTarget-Top {capitalizeFirstLetter(props.category)} Headlines</h2>
+                <h2 className='text-center ' style={{marginTop:"80px"}}>NewsTarget-Top {capitalizeFirstLetter(props.category)} Headlines</h2>
                 {loading && <Spinner />}
                 {/* this if for the infinite scroll */}
                 <InfiniteScroll

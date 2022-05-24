@@ -5,51 +5,49 @@ import {
   Route,
 } from "react-router-dom";
 
-import React, { Component } from 'react';
+import React, { Component,useState,useEffect } from 'react';
 import Navbar from './Components/Navbar';
 import News from './Components/News';
 import LoadingBar from 'react-top-loading-bar';
 
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      progress: 10
-    }
-  }
+const App=()=>{
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     progress: 10
+  //   }
+  // }
+  const [progress,SetProgress]=useState(10);
 
-  setProgress = (progress) => {
-    this.setState({
-      progress:progress
-    })
-  }
 
-  render() {
+  const setProgress = (nprogress) => {
+    SetProgress(nprogress);
+  }
     return (
       <Router>
         <div>
           <LoadingBar
             color='red'
             height={3}
-            progress={this.state.progress}
+            progress={progress}
           />
           <Navbar />
           <Routes>
 
-            {/* here News setProgress={this.setProgress}  is already mounted so page will not change data only end point change for force fully remounting we will use key prop with unique key .. with the help of key react understand that it is new component */}
-            <Route exact path="/" element={<News setProgress={this.setProgress} key="general" pageSize={6} category={"general"} />} />
-            <Route exact path="/business" element={<News setProgress={this.setProgress} key="business" pageSize={6} category={"business"} />} />
-            <Route exact path="/entertainment" element={<News setProgress={this.setProgress} key="entertainment" pageSize={6} category={"entertainment"} />} />
-            <Route exact path="/health" element={<News setProgress={this.setProgress} key="health" pageSize={6} category={"health"} />} />
-            <Route exact path="/science" element={<News setProgress={this.setProgress} key="science" pageSize={6} category={"science"} />} />
-            <Route exact path="/sports" element={<News setProgress={this.setProgress} key="sports" pageSize={6} category={"sports"} />} />
-            <Route exact path="/technology" element={<News setProgress={this.setProgress} key="technology" pageSize={6} category={"technology"} />} />
+            {/* here News setProgress={setProgress}  is already mounted so page will not change data only end point change for force fully remounting we will use key prop with unique key .. with the help of key react understand that it is new component */}
+            <Route exact path="/" element={<News setProgress={setProgress} key="general" pageSize={6} category={"general"} />} />
+            <Route exact path="/business" element={<News setProgress={setProgress} key="business" pageSize={6} category={"business"} />} />
+            <Route exact path="/entertainment" element={<News setProgress={setProgress} key="entertainment" pageSize={6} category={"entertainment"} />} />
+            <Route exact path="/health" element={<News setProgress={setProgress} key="health" pageSize={6} category={"health"} />} />
+            <Route exact path="/science" element={<News setProgress={setProgress} key="science" pageSize={6} category={"science"} />} />
+            <Route exact path="/sports" element={<News setProgress={setProgress} key="sports" pageSize={6} category={"sports"} />} />
+            <Route exact path="/technology" element={<News setProgress={setProgress} key="technology" pageSize={6} category={"technology"} />} />
           </Routes>
         </div>
       </Router>
     );
-  }
+  
 }
 
 export default App;
